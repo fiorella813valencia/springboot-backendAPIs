@@ -4,6 +4,7 @@ import net.javaguides.springbootbackendAPIs.exception.ResourceNotFoundException;
 import net.javaguides.springbootbackendAPIs.model.Employee;
 import net.javaguides.springbootbackendAPIs.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
@@ -39,7 +40,6 @@ public class EmployeeController {
     }
 
     // implement update employee by Id Rest API
-
     @PutMapping("{id}")
     public ResponseEntity<Employee> uploadEmployee(@PathVariable long id, @RequestBody Employee employeeDetails){
         Employee updateEmployee =employeeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Employee not exist with Id: "+id));
@@ -52,6 +52,18 @@ public class EmployeeController {
 
         return ResponseEntity.ok(updateEmployee);
     }
+
+    // implement delete employee by ID Rest API
+    @DeleteMapping("{id}")
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable long id){
+        Employee employee=employeeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Employee not exist with Id: "+id));
+
+        employeeRepository.delete(employee);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }
 
 
