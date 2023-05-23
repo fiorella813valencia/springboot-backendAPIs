@@ -38,7 +38,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employee);
     }
 
-    // implement upload employee by Id Rest API
+    // implement update employee by Id Rest API
 
     @PutMapping("{id}")
     public ResponseEntity<Employee> uploadEmployee(@PathVariable long id, @RequestBody Employee employeeDetails){
