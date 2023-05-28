@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.ResourceAccessException;
+
 
 import java.util.List;
 
@@ -21,17 +21,17 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAllEmployees(){
+
         return employeeRepository.findAll();
     }
 
     //implement create employee REST API
     @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee){ //this anotation can work a json into java object
+    public Employee createEmployee(@RequestBody Employee employee){ //this annotation can work a json into java object
         return employeeRepository.save(employee);
     }
 
     //implement get employee by id REST API
-
     @GetMapping("{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable long id){
         Employee employee=employeeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Employee not exist with id: "+id));
